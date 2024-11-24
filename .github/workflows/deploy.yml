@@ -18,7 +18,8 @@ jobs:
       
       - name: Deploy to S3
         run: |
+          PAYLOAD=$(echo -n '{"repository":"Kevtom2003/Project5","branch":"refs/heads/main"}' | base64)
           aws lambda invoke \
             --function-name github-to-s3-deploy \
-            --payload '{"repository":"${{ github.repository }}","branch":"${{ github.ref }}"}' \
+            --payload "$PAYLOAD" \
             response.json
